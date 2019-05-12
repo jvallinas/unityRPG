@@ -767,25 +767,6 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 847815384}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &953562964 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 4607335985020117019, guid: b0dbaf7dcdcc0f54eb62ef015803c1ea,
-    type: 3}
-  m_PrefabInstance: {fileID: 4607335984603436879}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &953562965
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 953562964}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1704375836c9f6c42aae4a3e61915228, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  weaponRange: 7.47
 --- !u!4 &953562968 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4607335985020117015, guid: b0dbaf7dcdcc0f54eb62ef015803c1ea,
@@ -1107,10 +1088,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 953562965, guid: b0dbaf7dcdcc0f54eb62ef015803c1ea, type: 3}
-      propertyPath: target
-      value: 
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b0dbaf7dcdcc0f54eb62ef015803c1ea, type: 3}
