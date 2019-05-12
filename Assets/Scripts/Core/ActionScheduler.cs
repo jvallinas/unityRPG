@@ -3,13 +3,13 @@ using UnityEngine;
 namespace RPG.Core
 {
     public class ActionScheduler : MonoBehaviour {
-        MonoBehaviour currentAction = null;
+        IAction currentAction = null;
 
-        public void StartAction(MonoBehaviour action) {
+        public void StartAction(IAction action) {
         
             if (currentAction == action) return;
             if (currentAction != null) {
-               print("Cancelling " + currentAction);
+                currentAction.Cancel();
             }
             currentAction = action;
         }
