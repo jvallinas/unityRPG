@@ -3,25 +3,35 @@ using System.Text;
 using UnityEngine;
 
 namespace RPG.Saving
-{    
-    public class SavingSystem : MonoBehaviour {
+{
+    public class SavingSystem : MonoBehaviour
+    {
         public void Save(string saveFile)
         {
             string path = GetPathFromSaveFile(saveFile);
             print("Saving to " + path);
-            FileStream stream = File.Open(path, FileMode.Create);
-
-            byte[] bytes = Encoding.UTF8.GetBytes("¡Hola Mundo!");
-            stream.Write(bytes, 0, bytes.Length);
-
-            stream.Close();
+            using (FileStream stream = File.Open(path, FileMode.Create))
+            {
+                byte[] bytes = Encoding.UTF8.GetBytes("¡Hola Mundo!");
+                stream.Write(bytes, 0, bytes.Length);
+            }
         }
         public void Load(string saveFile)
         {
-            print("Loading from " + GetPathFromSaveFile(saveFile));
+            string path = GetPathFromSaveFile(saveFile);
+
+            print("Loading from " + path);
+            using (FileStream stream = File.Open(path, FileMode.Open))
+            {
+                byte[] buffer = new byte[stream.Length];
+                stream.Read(buffer, 0, buffer.Length);
+                string result = Encoding.UTF8.GetString(buffer);
+                print("Loaded info. " + result);
+            }
         }
 
-        private string GetPathFromSaveFile(string saveFile){
+        private string GetPathFromSaveFile(string saveFile)
+        {
             return Path.Combine(Application.persistentDataPath, saveFile) + ".sav";
         }
     }
