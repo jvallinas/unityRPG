@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Runtime.Serialization.Formatters.Binary;
 using System.Text;
@@ -14,16 +15,9 @@ namespace RPG.Saving
             print("Saving to " + path);
             using (FileStream stream = File.Open(path, FileMode.Create))
             {
-                Transform playerTransform = getPlayerTransform();
                 BinaryFormatter formatter = new BinaryFormatter();
-                SerializableVector3 position = new SerializableVector3(playerTransform.position);
-                formatter.Serialize(stream, position);
+                formatter.Serialize(stream, CaptureState());
             }
-        }
-
-        private Transform getPlayerTransform()
-        {
-            return GameObject.FindWithTag("Player").transform;
         }
 
         public void Load(string saveFile)
@@ -33,10 +27,25 @@ namespace RPG.Saving
             print("Loading from " + path);
             using (FileStream stream = File.Open(path, FileMode.Open))
             {
-                Transform playerTransform = getPlayerTransform();
                 BinaryFormatter formatter = new BinaryFormatter();
-                SerializableVector3 position = (SerializableVector3) formatter.Deserialize(stream);
-                playerTransform.position = position.ToVector();
+                RestoreState(formatter.Deserialize(stream));
+            }
+        }
+
+        private object CaptureState()
+        {
+            Dictionary<string, object> state = new Dictionary<string, object>();
+            foreach(SaveableEntity saveable in FindObjectsOfType<SaveableEntity>()){
+               state[saveable.GetUniqueIdentifier()] = saveable.CaptureState();
+            }
+            return state;
+        }
+
+        private void RestoreState(object state)
+        {
+            Dictionary<string, object> stateDict = (Dictionary<string, object>) state;
+            foreach(SaveableEntity saveable in FindObjectsOfType<SaveableEntity>()){
+                saveable.RestoreState(stateDict[saveable.GetUniqueIdentifier()]);
             }
         }
 
