@@ -1,4 +1,5 @@
 using UnityEngine;
+using System.Collections;
 
 namespace RPG.Saving
 {
@@ -7,8 +8,8 @@ namespace RPG.Saving
     {
         const string defaultSaveFile = "save";
 
-        private void Start() {
-            Load();
+        private IEnumerator Start() {
+            yield return GetComponent<SavingSystem>().LoadLastScene(defaultSaveFile);
         }
 
         private void Update() {
